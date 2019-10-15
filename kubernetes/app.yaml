@@ -22,11 +22,11 @@ spec:
         app: stream-greeter
     spec:
       containers:
-      - name: myapp
-        image: dev.local/rhdevelopers/stream-greeter:v0.0.1
+      - name: greeter
+        image: will be updated by build script
         env:
           - name: KAFKA_BOOTSTRAP_SERVERS
-            value: "my-cluster-kafka-external-bootstrap:9094"
+            value: "my-cluster-kafka-external-bootstrap.mykafka:9094"
         resources:
           limits:
             memory: "256Mi"
