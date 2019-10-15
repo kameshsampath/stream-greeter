@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stream-greeter
+spec:
+  selector:
+    app: stream-greeter
+  ports:
+  - port: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-greeter
+spec:
+  selector:
+    matchLabels:
+      app: stream-greeter
+  template:
+    metadata:
+      labels:
+        app: stream-greeter
+    spec:
+      containers:
+      - name: myapp
+        image: dev.local/rhdevelopers/stream-greeter:v0.0.1
+        env:
+          - name: KAFKA_BOOTSTRAP_SERVERS
+            value: "my-cluster-kafka-external-bootstrap:9094"
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "300m"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+
