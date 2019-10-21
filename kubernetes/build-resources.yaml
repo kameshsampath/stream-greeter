@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: stream-git-source
+spec:
+  type: git
+  params: 
+  - name: url
+    value: https://github.com/kameshsampath/stream-greeter
+  - name: revision
+    value: master
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: stream-greeter-image
+spec:
+  type: image
+  params: 
+  - name: url
+    #value: "dev.local/rhdevelopers/stream-greeter"
+    # if you are on OpenShift uncomment the line below
+    value: "image-registry.openshift-image-registry.svc:5000/knativetutorial/stream-greeter"
