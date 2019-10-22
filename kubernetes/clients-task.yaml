@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: clients
+spec:
+  inputs:    
+    params:
+    - name: client-image
+      description: clients container image to run this task
+      default: quay.io/rhdevelopers/tutorial-tools:0.0.2
+    - name: ARGS
+      type: array
+      description: clients commands to run
+      default:
+      - "help"
+    resources:
+    - name: image
+      type: image
+    - name: source
+      type: git
+  steps:
+  - name: run-client
+    image: "$(inputs.params.client-image)"
+    command: ["bash"]
+    args: ["$(inputs.params.ARGS)"]
+    workingDir: "/workspace/source"

@@ -34,28 +34,28 @@ spec:
       outputs:
         - name: builtImage
           resource: appImage
-   - name: set-image
+   - name: 
      taskRef:
-       name: yq
+       name: clients
      runAfter:
       - build-java-app
+     resources:
+      inputs:
+        - name: source
+          resource: appSource
+        - name: image
+          resource: appImage
+          from: 
+           - build-java-app
      params:
       - name: ARGS
         value:
-        - "w"
-        - "$(params.contextDir)/kubernetes/app.yaml"
-        - "-d1"
-        - "spec.template.spec.containers[0].image"
-        - "greeter"
-        - "$(inputs.resources.image.url)"
-   - name: deploy-service
-     taskRef:
-       name: openshift-client
-     runAfter:
-      - set-image
-     params:
-      - name: ARGS
-        value:
-        - "apply"
-        - "-f"
-        - "$(params.contextDir)/kubernetes/app.yaml"
+        - "-c"
+        - >
+          yq 
+          w 
+          -d1 
+          $(params.contextDir)/kubernetes/app.yaml 
+          spec.template.spec.containers[0].image 
+          $(inputs.resources.image.url) | kubectl apply -f -
+       

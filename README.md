@@ -34,14 +34,19 @@ kubectl apply -f https://raw.githubusercontent.com/redhat-developer-demos/knativ
 ```
 
 ```shell
-kubectl apply -f $PROJECT_HOME/kubernetes/build-resources.yaml
-kubectl apply -f $PROJECT_HOME/kubernetes/yq-task.yaml
-kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/master/openshift-client/openshift-client-task.yaml
-kubectl apply -f $PROJECT_HOME/kubernetes/build-app-task.yaml
-kubectl apply -f $PROJECT_HOME/kubernetes/build-and-deploy.yaml
+kubectl apply  -n knativetutorial -f $PROJECT_HOME/kubernetes/build-resources.yaml
+kubectl apply  -n knativetutorial -f $PROJECT_HOME/kubernetes/clients-task.yaml
+kubectl apply  -n knativetutorial -f $PROJECT_HOME/kubernetes/build-app-task.yaml
+kubectl apply  -n knativetutorial -f $PROJECT_HOME/kubernetes/build-and-deploy.yaml
 ```
 
 Run the pipeline using the command
+
+In OpenShift the service account `pipeline` need to have `edit` role to be able push to internal registry. Add `edit` role using the command:
+
+```shell
+oc adm policy add-role-to-user edit -z pipeline -n knativetutorial
+```
 
 ```shell
 tkn pipeline start kn-svc-deploy \

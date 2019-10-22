@@ -18,6 +18,7 @@ spec:
   type: image
   params: 
   - name: url
+    # if you are minikube uncomment this line
     #value: "dev.local/rhdevelopers/stream-greeter"
     # if you are on OpenShift uncomment the line below
     value: "image-registry.openshift-image-registry.svc:5000/knativetutorial/stream-greeter"
