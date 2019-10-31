@@ -26,11 +26,14 @@ spec:
         image: will be updated by build script
         env:
           - name: KAFKA_BOOTSTRAP_SERVERS
-            value: "my-cluster-kafka-external-bootstrap.mykafka:9094"
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "300m"
+            value: "my-cluster-kafka-external-bootstrap.kafka:9094"
+        # resources:
+        #   limits:
+        #     memory: "2000m"
+        #     cpu: "2Gi"
+        #   requests:
+        #     memory: "1000m"
+        #     cpu: "1Gi"
         ports:
         - containerPort: 8080
         livenessProbe:
