@@ -49,7 +49,7 @@ oc adm policy add-role-to-user edit -z pipeline -n knativetutorial
 ```
 
 ```shell
-tkn pipeline start kn-svc-deploy \
+tkn pipeline start stream-greeter-svc-deploy \
  --param="mavenMirrorUrl=http://nexus.rhd-workshop-infra:8081/nexus/content/groups/public"  \
  --resource="appSource=stream-git-source" \
  --resource="appImage=stream-greeter-image" \
